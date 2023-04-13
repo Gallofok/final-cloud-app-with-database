@@ -109,7 +109,7 @@ class Question(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)    
     text = models.TextField()
     grade_point = models.DecimalField(_('Grade Point'), max_digits=5, decimal_places=2,default=1)
-     
+    id = models.IntegerField(primary_key=True) 
 
 
     def is_get_score(self, selected_ids):
@@ -130,8 +130,9 @@ class Question(models.Model):
 class Choice(models.Model):
         question = models.ForeignKey(Question, on_delete=models.CASCADE)
         text = models.CharField(max_length=255)
+        models.IntegerField(primary_key=True)
         is_correct = models.BooleanField(default=False)
-
+        id = models.IntegerField(primary_key=True)
 # <HINT> The submission model
 # One enrollment could have multiple submission
 # One submission could have multiple choices
