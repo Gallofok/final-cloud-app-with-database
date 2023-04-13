@@ -55,6 +55,7 @@ class Learner(models.Model):
 
 # Course model
 class Course(models.Model):
+    course_id = models.CharField(max_length=20)
     name = models.CharField(null=False, max_length=30, default='online course')
     image = models.ImageField(upload_to='course_images/')
     description = models.CharField(max_length=1000)
@@ -63,7 +64,7 @@ class Course(models.Model):
     users = models.ManyToManyField(settings.AUTH_USER_MODEL, through='Enrollment')
     total_enrollment = models.IntegerField(default=0)
     is_enrolled = False
-
+    passing_score = models.IntegerField(default=2)
     def __str__(self):
         return "Name: " + self.name + "," + \
                "Description: " + self.description
@@ -128,11 +129,11 @@ class Question(models.Model):
     # Indicate if this choice of the question is a correct one or not
     # Other fields and methods you would like to design
 class Choice(models.Model):
-        question = models.ForeignKey(Question, on_delete=models.CASCADE)
-        text = models.CharField(max_length=255)
-        models.IntegerField(primary_key=True)
-        is_correct = models.BooleanField(default=False)
-        id = models.IntegerField(primary_key=True)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    text = models.CharField(max_length=255)
+    models.IntegerField(primary_key=True)
+    is_correct = models.BooleanField(default=False)
+    id = models.IntegerField(primary_key=True)
 # <HINT> The submission model
 # One enrollment could have multiple submission
 # One submission could have multiple choices
